@@ -99,16 +99,15 @@ TBitField& TBitField::operator=(const TBitField& bf) // присваивание
 		return *this;
 	}
 	else {
-		delete[] pMem;
 		if (MemLen == bf.MemLen) {
 			memcpy(pMem, bf.pMem, MemLen);
 			BitLen = bf.BitLen;
 		}
 		else {
-			MemLen = bf.MemLen;
-			BitLen = bf.BitLen;
+			MemLen = max(MemLen, bf.MemLen);
+			BitLen = max(BitLen, bf.BitLen);
 			delete [] pMem;
-			TELEM* pMem = new TELEM[MemLen];
+			TELEM* pMem = new TELEM[max(MemLen, bf.MemLen)];
 			memcpy(pMem, bf.pMem, MemLen);
 		}
 		return *this;
