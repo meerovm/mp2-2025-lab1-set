@@ -78,13 +78,9 @@ TSet TSet::operator+(const int Elem) // объединение с элемент
 	}
 	else {
 		TSet w = TSet(Elem);
-		for (int i = 0; i < MaxPower; i++) {
-			if (BitField.GetBit(i)) {
-				w.BitField.SetBit(i);
-			}
-		}
-		w.BitField.SetBit(Elem);
+		w.InsElem(Elem);
 		MaxPower = Elem;
+		w.BitField = w.BitField | this->BitField;
 		return w;
 	}
 }
