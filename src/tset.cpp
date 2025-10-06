@@ -106,12 +106,12 @@ TSet TSet::operator*(const TSet& s) // пересечение
 	}
 	else {
 		TSet q = TSet(max(MaxPower, s.MaxPower));
-
-	}
-	for (int i = 0; i < min(MaxPower, s.MaxPower); i++) {
-		if ((BitField.GetBit(i) & s.BitField.GetBit(i)) == 1) {
-			BitField.SetBit(i);
-		};
+		for (int i = 0; i < min(MaxPower, s.MaxPower); i++) {
+			if ((BitField.GetBit(i) & s.BitField.GetBit(i)) == 1) {
+				BitField.SetBit(i);
+			};
+		}
+		return q;
 	}
 }
 
