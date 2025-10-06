@@ -5,11 +5,10 @@
 //
 // Битовое поле
 
-#include "tbitfield.h"
 TBitField::TBitField(int len)
 {
 	if (len <= 0) {
-		throw "nhfnfnf";
+		throw "length mast be positive";
 	}
 	else {
 		BitLen = len;
@@ -65,7 +64,7 @@ int TBitField::GetLength(void) const // получить длину (к-во б�
 void TBitField::SetBit(const int n) // установить бит
 {
 	if ((n < 0) || (n >= BitLen)) {
-		throw "nhfnfnf";
+		throw "bit number out of range";
 	}
 	else {
 		pMem[GetMemIndex(n)] |= GetMemMask(n);
@@ -75,7 +74,7 @@ void TBitField::SetBit(const int n) // установить бит
 void TBitField::ClrBit(const int n) // очистить бит
 {
 	if ((n < 0) || (n >= BitLen)) {
-		throw "nhfnfnf";
+		throw "bit number out of range";
 	}
 	else {
 		pMem[GetMemIndex(n)] &= ~(GetMemMask(n));
@@ -85,7 +84,7 @@ void TBitField::ClrBit(const int n) // очистить бит
 int TBitField::GetBit(const int n) const // получить значение бита
 {
 	if ((n < 0) || (n >= BitLen)) {
-		throw "nhfnfnf";
+		throw "bit number out of range";
 	}
 	else {
 		return ((pMem[GetMemIndex(n)] & GetMemMask(n)) != 0);
@@ -150,7 +149,7 @@ int TBitField::operator!=(const TBitField& bf) const // сравнение
 TBitField TBitField::operator|(const TBitField& bf) // операция "или"
 {
 	if (BitLen != bf.BitLen) {
-		throw "nhfkfkf";
+		throw "the lengths of the bitfields are not equal";
 	}
 	else {
 		TBitField s(BitLen);
@@ -164,7 +163,7 @@ TBitField TBitField::operator|(const TBitField& bf) // операция "или"
 TBitField TBitField::operator&(const TBitField& bf) // операция "и"
 {
 	if (BitLen != bf.BitLen) {
-		throw "nhfkfkf";
+		throw "the lengths of the bitfields are not equal";
 	}
 	else {
 		TBitField s(BitLen);
