@@ -80,6 +80,7 @@ TSet TSet::operator+(const int Elem) // объединение с элемент
 		TSet w = TSet(Elem);
 		w.InsElem(Elem);
 		MaxPower = Elem;
+		w.BitField = w.BitField| this->BitField;
 		return w;
 	}
 }
