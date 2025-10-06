@@ -160,7 +160,25 @@ int TBitField::operator!=(const TBitField& bf) const // сравнение
 TBitField TBitField::operator|(const TBitField& bf) // операция "или"
 {
 	if (MemLen != bf.MemLen) {
-		throw "the lengths of the bitfields are not equal";
+		TBitField s(max(BitLen, bf.BitLen));
+		if (BitLen >= bf.BitLen) {
+			for (int i = 0; i < bf.BitLen; i++) {
+				s.pMem[i] = (pMem[i] | bf.pMem[i]);
+			}
+			for (int i = bf.BitLen; i < BitLen; i++) {
+				s.pMem[i] = (pMem[i]);
+			}
+			return s;
+		}
+		else {
+			for (int i = 0; i < BitLen; i++) {
+				s.pMem[i] = (pMem[i] | bf.pMem[i]);
+			}
+			for (int i = BitLen; i < bf.BitLen; i++) {
+				s.pMem[i] = (bf.pMem[i]);
+			}
+			return s;
+		}
 	}
 	else {
 		TBitField s(BitLen);
@@ -174,7 +192,11 @@ TBitField TBitField::operator|(const TBitField& bf) // операция "или"
 TBitField TBitField::operator&(const TBitField& bf) // операция "и"
 {
 	if (MemLen != bf.MemLen) {
-		throw "the lengths of the bitfields are not equal";
+		TBitField s(max(BitLen, bf.BitLen));
+		for (int i = 0; i < min(bf.BitLen, BitLen); i++) {
+			s.pMem[i] = (pMem[i] & bf.pMem[i]);
+		}
+		return s;
 	}
 	else {
 		TBitField s(BitLen);
