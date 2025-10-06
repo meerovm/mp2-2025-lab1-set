@@ -105,6 +105,9 @@ TBitField& TBitField::operator=(const TBitField& bf) // присваивание
 				if (bf.GetBit(i)) {
 					SetBit(i);
 				}
+				else {
+					ClrBit(i);
+				}
 			}
 			BitLen = bf.BitLen;
 		}
