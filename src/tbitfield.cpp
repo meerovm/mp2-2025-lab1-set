@@ -93,6 +93,7 @@ int TBitField::GetBit(const int n) const // получить значение б
 
 // битовые операции
 
+
 TBitField& TBitField::operator=(const TBitField& bf) // присваивание
 {
 	if (bf == *this) {
@@ -100,7 +101,7 @@ TBitField& TBitField::operator=(const TBitField& bf) // присваивание
 	}
 	else {
 		if (MemLen == bf.MemLen) {
-			memcpy(pMem, bf.pMem, MemLen);
+			memcpy(pMem, bf.pMem, BitLen*8);
 			BitLen = bf.BitLen;
 		}
 		else {
@@ -108,7 +109,7 @@ TBitField& TBitField::operator=(const TBitField& bf) // присваивание
 			BitLen = max(BitLen, bf.BitLen);
 			delete [] pMem;
 			TELEM* pMem = new TELEM[max(MemLen, bf.MemLen)];
-			memcpy(pMem, bf.pMem, MemLen);
+			memcpy(pMem, bf.pMem, BitLen*8);
 		}
 		return *this;
 	}
