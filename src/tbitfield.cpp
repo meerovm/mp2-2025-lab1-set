@@ -101,15 +101,23 @@ TBitField& TBitField::operator=(const TBitField& bf) // присваивание
 	}
 	else {
 		if (MemLen == bf.MemLen) {
-			memcpy(pMem, bf.pMem, BitLen*8);
+			for (int i = 0; i < bf.BitLen; i++) {
+				if (bf.GetBit(i)) {
+					SetBit(i);
+				}
+			}
 			BitLen = bf.BitLen;
 		}
 		else {
-			MemLen = max(MemLen, bf.MemLen);
-			BitLen = max(BitLen, bf.BitLen);
+			MemLen = bf.MemLen;
 			delete [] pMem;
-			TELEM* pMem = new TELEM[max(MemLen, bf.MemLen)];
-			memcpy(pMem, bf.pMem, BitLen*8);
+			TELEM* pMem = new TELEM[MemLen];
+			for (int i = 0; i < bf.BitLen; i++) {
+				if (bf.GetBit(i)) {
+					SetBit(i);
+				}
+			}
+			BitLen = bf.BitLen;
 		}
 		return *this;
 	}
