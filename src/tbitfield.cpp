@@ -12,7 +12,7 @@ TBitField::TBitField(int len)
 	}
 	else {
 		BitLen = len;
-		MemLen = (len + 1) / sizeof(TELEM);
+		MemLen = (len + sizeof(TELEM)*8 - 1) / sizeof(TELEM)/8;
 		pMem = new TELEM[MemLen];
 		for (int i = 0; i < MemLen; i++) {
 			pMem[i] = 0;
@@ -77,7 +77,7 @@ void TBitField::ClrBit(const int n) // очистить бит
 		throw "bit number out of range";
 	}
 	else {
-		pMem[GetMemIndex(n)] &= ~(GetMemMask(n));
+		pMem[GetMemIndex(n)] &= (~(GetMemMask(n)));
 	}
 }
 
@@ -93,7 +93,6 @@ int TBitField::GetBit(const int n) const // получить значение б
 
 // битовые операции
 
-
 TBitField& TBitField::operator=(const TBitField& bf) // присваивание
 {
 	if (bf == *this) {
@@ -108,6 +107,7 @@ TBitField& TBitField::operator=(const TBitField& bf) // присваивание
 				else {
 					ClrBit(i);
 				}
+
 			}
 			BitLen = bf.BitLen;
 		}
@@ -159,7 +159,7 @@ int TBitField::operator!=(const TBitField& bf) const // сравнение
 
 TBitField TBitField::operator|(const TBitField& bf) // операция "или"
 {
-	if (BitLen != bf.BitLen) {
+	if (MemLen != bf.MemLen) {
 		throw "the lengths of the bitfields are not equal";
 	}
 	else {
@@ -173,7 +173,7 @@ TBitField TBitField::operator|(const TBitField& bf) // операция "или"
 
 TBitField TBitField::operator&(const TBitField& bf) // операция "и"
 {
-	if (BitLen != bf.BitLen) {
+	if (MemLen != bf.MemLen) {
 		throw "the lengths of the bitfields are not equal";
 	}
 	else {
@@ -212,7 +212,7 @@ ostream& operator<<(ostream& ostr, const TBitField& bf) // вывод
 {
 	ostr << bf.BitLen << ":";
 	for (int i = 0; i < bf.BitLen; i++) {
-		ostr << i << " ";
+		ostr << bf.GetBit(i) << " ";
 	}
 	ostr << endl;
 	return ostr;
