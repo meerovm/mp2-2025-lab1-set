@@ -72,7 +72,7 @@ TSet TSet::operator+(const TSet& s) // объединение
 TSet TSet::operator+(const int Elem) // объединение с элементом
 {
 	if (Elem < MaxPower) {
-		TSet w = TSet(BitField);
+		TSet w = TSet(*this);
 		w.InsElem(Elem);
 		return w;
 	}
