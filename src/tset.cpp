@@ -6,7 +6,6 @@
 // Множество - реализация через битовые поля
 
 #include "tset.h"
-#include "tbitfield.h"
 TSet::TSet(int mp) : BitField(mp), MaxPower(mp) {}
 
 // конструктор копирования
