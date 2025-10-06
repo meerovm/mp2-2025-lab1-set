@@ -71,7 +71,7 @@ TSet TSet::operator+(const TSet& s) // объединение
 
 TSet TSet::operator+(const int Elem) // объединение с элементом
 {
-	if (Elem < MaxPower) {
+	if (Elem <= MaxPower) {
 		TSet w = TSet(*this);
 		w.InsElem(Elem);
 		return w;
@@ -79,8 +79,12 @@ TSet TSet::operator+(const int Elem) // объединение с элемент
 	else {
 		TSet w = TSet(Elem);
 		w.InsElem(Elem);
-		MaxPower = Elem;
-		w.BitField = w.BitField| this->BitField;
+		w.MaxPower = Elem;
+		for (int i = 0; i < MaxPower; i++) {
+			if (this->IsMember(i)) {
+				w.InsElem(i);
+			}
+		}
 		return w;
 	}
 }
