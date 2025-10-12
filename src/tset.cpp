@@ -59,7 +59,7 @@ TSet TSet::operator+(const TSet& s) // объединение
 TSet TSet::operator+(const int Elem) // объединение с элементом
 {
 	if (Elem < MaxPower) {
-		TSet w = TSet(*this);
+		TSet w = TSet(MaxPower);
 		w.InsElem(Elem);
 		return w;
 	}
