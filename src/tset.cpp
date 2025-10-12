@@ -88,7 +88,9 @@ TSet TSet::operator-(const int Elem) // разность с элементом
 }
 TSet TSet::operator*(const TSet& s) // пересечение
 {
-	return TSet(BitField & s.BitField);
+	TSet w = TSet(max(MaxPower, s.GetMaxPower()));
+	w.BitField = (BitField & s.BitField);
+	return w;
 }
 TSet TSet::operator~(void) // дополнение
 {
