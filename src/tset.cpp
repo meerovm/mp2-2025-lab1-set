@@ -54,12 +54,19 @@ int TSet::operator!=(const TSet& s) const // сравнение
 }
 TSet TSet::operator+(const TSet& s) // объединение
 {
-	return TSet(BitField | s.BitField);
+	TSet w = TSet(max(MaxPower, s.GetMaxPower()));
+	w.BitField = (BitField | s.BitField);
+	return w;
 }
 TSet TSet::operator+(const int Elem) // объединение с элементом
 {
 	if (Elem < MaxPower) {
 		TSet w = TSet(MaxPower);
+		for (int i = 0; i < MaxPower; i++) {
+			if (this->IsMember(i)) {
+				w.InsElem(i);
+			}
+		}
 		w.InsElem(Elem);
 		return w;
 	}
