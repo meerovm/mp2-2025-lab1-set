@@ -180,7 +180,7 @@ TBitField TBitField::operator&(const TBitField& bf) // операция "и"
 {
 	if (BitLen != bf.BitLen) {
 		TBitField s(max(BitLen, bf.BitLen));
-		for (int i = 0; i < min(bf.BitLen, BitLen); i++) {
+		for (int i = 0; i < min(bf.MemLen, MemLen); i++) {
 			s.pMem[i] = (pMem[i] & bf.pMem[i]);
 		}
 		return s;
