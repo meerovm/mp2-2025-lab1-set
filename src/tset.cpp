@@ -94,7 +94,9 @@ TSet TSet::operator*(const TSet& s) // пересечение
 }
 TSet TSet::operator~(void) // дополнение
 {
-	return TSet(~BitField);
+	TSet w = TSet(MaxPower);
+	w.BitField = ~BitField;
+	return w;
 }
 // перегрузка ввода/вывода
 istream& operator>>(istream& istr, TSet& s) // ввод
