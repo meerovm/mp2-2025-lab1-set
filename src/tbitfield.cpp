@@ -179,7 +179,7 @@ TBitField TBitField::operator|(const TBitField& bf) // операция "или"
 	}
 	else {
 		TBitField s(BitLen);
-		for (int i = BitLen; i < bf.BitLen; i++) {
+		for (int i = 0; i < bf.BitLen; i++) {
 			if (this->GetBit(i) || bf.GetBit(i)) {
 				s.SetBit(i);
 			}
